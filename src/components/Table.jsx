@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 export default function Table() {
-  const { data } = useContext(PlanetsContext);
+  const { data, filterByName } = useContext(PlanetsContext);
   return (
     <table>
       <thead>
@@ -24,37 +24,44 @@ export default function Table() {
       </thead>
       <tbody>
         {
-          data.map(({
-            name,
-            rotation_period: rotationPeriod,
-            orbital_period: orbitalPeriod,
-            diameter,
-            climate,
-            gravity,
-            terrain,
-            surface_water: surfaceWater,
-            population,
-            films,
-            created,
-            edited,
-            url,
-          }) => (
-            <tr key={ name }>
-              <td>{name}</td>
-              <td>{rotationPeriod}</td>
-              <td>{orbitalPeriod}</td>
-              <td>{diameter}</td>
-              <td>{climate}</td>
-              <td>{gravity}</td>
-              <td>{terrain}</td>
-              <td>{surfaceWater}</td>
-              <td>{population}</td>
-              <td>{films}</td>
-              <td>{created}</td>
-              <td>{edited}</td>
-              <td>{url}</td>
-            </tr>
-          ))
+          data
+            .filter(({ name }) => name.includes(filterByName)
+            || name.includes(filterByName
+              // https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+              .charAt(0)
+              .toUpperCase() + filterByName
+              .slice(1)))
+            .map(({
+              name,
+              rotation_period: rotationPeriod,
+              orbital_period: orbitalPeriod,
+              diameter,
+              climate,
+              gravity,
+              terrain,
+              surface_water: surfaceWater,
+              population,
+              films,
+              created,
+              edited,
+              url,
+            }) => (
+              <tr key={ name }>
+                <td>{name}</td>
+                <td>{rotationPeriod}</td>
+                <td>{orbitalPeriod}</td>
+                <td>{diameter}</td>
+                <td>{climate}</td>
+                <td>{gravity}</td>
+                <td>{terrain}</td>
+                <td>{surfaceWater}</td>
+                <td>{population}</td>
+                <td>{films}</td>
+                <td>{created}</td>
+                <td>{edited}</td>
+                <td>{url}</td>
+              </tr>
+            ))
         }
       </tbody>
     </table>
