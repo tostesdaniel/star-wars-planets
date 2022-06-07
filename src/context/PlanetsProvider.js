@@ -4,9 +4,12 @@ import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
+  const [filterByName, setFilterByName] = useState('');
   const context = {
     data,
     setData,
+    filterByName,
+    setFilterByName,
   };
 
   async function fetchPlanets() {
