@@ -15,6 +15,9 @@ function PlanetsProvider({ children }) {
       value: 0,
     },
   ]);
+  const [availableFilters, setAvailableFilters] = useState([
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ]);
 
   const context = {
     data,
@@ -25,6 +28,8 @@ function PlanetsProvider({ children }) {
     setFilterByName,
     filterByNumericValues,
     setFilterByNumericValues,
+    availableFilters,
+    setAvailableFilters,
   };
 
   async function fetchPlanets() {
