@@ -12,6 +12,8 @@ export default function FilterForm() {
       comparison,
     },
     setFilterByNumericValues,
+    availableFilters,
+    setAvailableFilters,
   } = useContext(PlanetsContext);
 
   const inputHandler = ({ target: { value: val } }, type, property) => {
@@ -25,6 +27,12 @@ export default function FilterForm() {
     }
   };
 
+  const filterUsedFilters = (usedFilter) => {
+    const newAvailableFilters = availableFilters
+      .filter((availableFilter) => availableFilter !== usedFilter);
+    setAvailableFilters(newAvailableFilters);
+  };
+
   const filter = () => {
     const { column: property, comparison: operator, value } = filterByNumericValues[0];
     const newData = filteredData.filter((planet) => {
@@ -36,6 +44,7 @@ export default function FilterForm() {
       return planet[property] === value;
     });
     setFilteredData(newData);
+    filterUsedFilters(property);
   };
 
   return (
@@ -57,11 +66,16 @@ export default function FilterForm() {
           onChange={ (event) => inputHandler(event, 'NumericValues', 'column') }
           data-testid="column-filter"
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {
+            availableFilters.map((availableFilter) => (
+              <option
+                key={ availableFilter }
+                value={ availableFilter }
+              >
+                {availableFilter}
+              </option>
+            ))
+          }
         </select>
       </label>
       <label htmlFor="condition-input">
