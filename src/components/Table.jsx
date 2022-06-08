@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 export default function Table() {
-  const { data, filterByName } = useContext(PlanetsContext);
+  const { filteredData, filterByName } = useContext(PlanetsContext);
   return (
     <table>
       <thead>
@@ -24,7 +24,7 @@ export default function Table() {
       </thead>
       <tbody>
         {
-          data
+          filteredData
             .filter(({ name }) => name.includes(filterByName)
             || name.includes(filterByName
               // https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
