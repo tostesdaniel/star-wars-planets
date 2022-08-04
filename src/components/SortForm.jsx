@@ -18,7 +18,8 @@ export default function SortForm() {
   const { filteredData, setFilteredData } = useContext(PlanetsContext);
 
   const orderTable = (arr, { column, sort }) => {
-    const [after, before] = [1, -1];
+    const after = 1;
+    const before = -1;
     const orderedPlanets = [...arr].sort((a, b) => {
       if (b[column] === 'unknown') return sort === 'DESC' ? before : after;
       if (Number(a[column]) === Number(b[column])) {
