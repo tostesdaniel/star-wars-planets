@@ -47,7 +47,10 @@ function PlanetsProvider({ children }) {
     if (!data.length) {
       fetchPlanets();
     }
-    setFilteredData(data);
+    const orderedPlanets = [...data].sort(
+      (a, b) => a.name.localeCompare(b.name),
+    );
+    setFilteredData(orderedPlanets);
   }, [data]);
 
   return (
