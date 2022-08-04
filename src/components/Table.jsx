@@ -23,15 +23,18 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        {
-          filteredData
-            .filter(({ name }) => name.includes(filterByName)
-            || name.includes(filterByName
-              // https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
-              .charAt(0)
-              .toUpperCase() + filterByName
-              .slice(1)))
-            .map(({
+        {filteredData
+          .filter(
+            ({ name }) => name.includes(filterByName)
+              || name.includes(
+                filterByName
+                  // https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+                  .charAt(0)
+                  .toUpperCase() + filterByName.slice(1),
+              ),
+          )
+          .map(
+            ({
               name,
               rotation_period: rotationPeriod,
               orbital_period: orbitalPeriod,
@@ -47,7 +50,7 @@ export default function Table() {
               url,
             }) => (
               <tr key={ name }>
-                <td>{name}</td>
+                <td data-testid="planet-name">{name}</td>
                 <td>{rotationPeriod}</td>
                 <td>{orbitalPeriod}</td>
                 <td>{diameter}</td>
@@ -61,8 +64,8 @@ export default function Table() {
                 <td>{edited}</td>
                 <td>{url}</td>
               </tr>
-            ))
-        }
+            ),
+          )}
       </tbody>
     </table>
   );
