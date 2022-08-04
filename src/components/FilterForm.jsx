@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
+import SortForm from './SortForm';
 
 export default function FilterForm() {
   const [appliedFilters, setAppliedFilters] = useState([]);
@@ -10,10 +11,6 @@ export default function FilterForm() {
     setFilteredData,
     setFilterByName,
     filterByNumericValues,
-    filterByNumericValues: {
-      column,
-      comparison,
-    },
     setFilterByNumericValues,
     availableFilters,
     setAvailableFilters,
@@ -30,10 +27,19 @@ export default function FilterForm() {
     }
   };
 
+  const updateNumericFilter = (unusedFilters) => {
+    const newFilters = {
+      ...filterByNumericValues[0],
+      column: unusedFilters[0],
+    };
+    setFilterByNumericValues([newFilters]);
+  };
+
   const utilizeFilter = (usedFilter) => {
     const newAvailableFilters = availableFilters
       .filter((availableFilter) => availableFilter !== usedFilter);
     setAvailableFilters(newAvailableFilters);
+    updateNumericFilter(newAvailableFilters);
   };
 
   const filterTable = () => {
@@ -116,7 +122,7 @@ export default function FilterForm() {
           <select
             name="column-filter"
             id="column-filter"
-            value={ column }
+            value={ filterByNumericValues[0].column }
             onChange={ (event) => inputHandler(event, 'NumericValues', 'column') }
             data-testid="column-filter"
           >
@@ -137,7 +143,7 @@ export default function FilterForm() {
           <select
             name="condition-input"
             id="condition-input"
-            value={ comparison }
+            value={ filterByNumericValues[0].comparison }
             onChange={ (event) => inputHandler(event, 'NumericValues', 'comparison') }
             data-testid="comparison-filter"
           >
@@ -197,6 +203,7 @@ export default function FilterForm() {
           ))
         }
       </div>
+      <SortForm />
     </>
   );
 }
