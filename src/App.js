@@ -1,6 +1,6 @@
 import React from 'react';
 import PlanetsProvider from './context/PlanetsProvider';
-import Table from './components/Table';
+import Table from './components/Table/Table';
 import FilterForm from './components/FilterForm';
 import './App.css';
 import './index.css';

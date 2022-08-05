@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import PlanetsContext from '../context/PlanetsContext';
-import tableData from './Table/structure';
+import PlanetsContext from '../../context/PlanetsContext';
+import tableData from './structure';
 
 function formatDate(date) {
   return date.split('T')[0];
