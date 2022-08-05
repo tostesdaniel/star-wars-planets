@@ -2,9 +2,17 @@
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
+    './public/index.html',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        starwars: 'Star Jedi',
+      },
+      colors: {
+        sw_yellow: '#ffe81f',
+      },
+    },
   },
   plugins: [],
 };
