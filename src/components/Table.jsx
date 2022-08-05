@@ -1,28 +1,29 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
+import tableData from './Table/structure';
+
+function formatDate(date) {
+  return date.split('T')[0];
+}
 
 export default function Table() {
   const { filteredData, filterByName } = useContext(PlanetsContext);
+
   return (
-    <table>
+    <table className="mx-auto mt-4 table-fixed bg-slate-900">
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rotation Period</th>
-          <th>Orbital Period</th>
-          <th>Diameter</th>
-          <th>Climate</th>
-          <th>Gravity</th>
-          <th>Terrain</th>
-          <th>Surface Water</th>
-          <th>Population</th>
-          <th>Films</th>
-          <th>Created</th>
-          <th>Edited</th>
-          <th>URL</th>
+        <tr className="rounded border-2 border-sw_yellow/75 backdrop-blur-xl">
+          {Object.entries(tableData)[0][1].map((data) => (
+            <th key={ data } className="w-fit p-1 text-center text-slate-200">
+              {data}
+            </th>
+          ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody
+        className="divide-y divide-black/50 border-2
+      border-sw_yellow/75 bg-slate-800"
+      >
         {filteredData
           .filter(
             ({ name }) => name.includes(filterByName)
@@ -49,20 +50,37 @@ export default function Table() {
               edited,
               url,
             }) => (
-              <tr key={ name }>
-                <td data-testid="planet-name">{name}</td>
-                <td>{rotationPeriod}</td>
-                <td>{orbitalPeriod}</td>
-                <td>{diameter}</td>
-                <td>{climate}</td>
-                <td>{gravity}</td>
-                <td>{terrain}</td>
-                <td>{surfaceWater}</td>
-                <td>{population}</td>
-                <td>{films}</td>
-                <td>{created}</td>
-                <td>{edited}</td>
-                <td>{url}</td>
+              <tr key={ name } className="divide-x divide-black/50">
+                <td data-testid="planet-name" className="p-2 text-center">
+                  {name}
+                </td>
+                <td className="p-2 text-center">{rotationPeriod}</td>
+                <td className="p-2 text-center">{orbitalPeriod}</td>
+                <td className="p-2 text-center">{diameter}</td>
+                <td className="p-2 text-center">{climate}</td>
+                <td className="p-2 text-center">{gravity}</td>
+                <td className="p-2 text-center">{terrain}</td>
+                <td className="p-2 text-center">{surfaceWater}</td>
+                <td className="p-2 text-center">{population}</td>
+                <td className="p-2 text-center">
+                  {films.map((film) => (
+                    <a href={ film } key={ film }>
+                      <p className="underline hover:text-slate-500 hover:no-underline">
+                        {`Movie ${film[28]}`}
+                      </p>
+                    </a>
+                  ))}
+                </td>
+                <td className="p-2 text-center">{formatDate(created)}</td>
+                <td className="p-2 text-center">{formatDate(edited)}</td>
+                <td className="p-2 text-center">
+                  <a
+                    href={ url }
+                    className="underline hover:text-slate-500 hover:no-underline"
+                  >
+                    {url}
+                  </a>
+                </td>
               </tr>
             ),
           )}
