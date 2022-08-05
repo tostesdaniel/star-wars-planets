@@ -33,7 +33,7 @@ function PlanetsProvider({ children }) {
   };
 
   async function fetchPlanets() {
-    const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
+    const url = 'https://swapi.dev/api/planets/';
     const apiResponse = await fetch(url);
     const apiData = await apiResponse.json();
     const { results } = apiData;
