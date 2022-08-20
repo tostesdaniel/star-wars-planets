@@ -16,8 +16,13 @@ function PlanetsProvider({ children }) {
     },
   ]);
   const [availableFilters, setAvailableFilters] = useState([
-    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
   ]);
+  const [appliedFilters, setAppliedFilters] = useState([]);
 
   const context = {
     data,
@@ -30,6 +35,8 @@ function PlanetsProvider({ children }) {
     setFilterByNumericValues,
     availableFilters,
     setAvailableFilters,
+    appliedFilters,
+    setAppliedFilters,
   };
 
   async function fetchPlanets() {
@@ -47,9 +54,7 @@ function PlanetsProvider({ children }) {
     if (!data.length) {
       fetchPlanets();
     }
-    const orderedPlanets = [...data].sort(
-      (a, b) => a.name.localeCompare(b.name),
-    );
+    const orderedPlanets = [...data].sort((a, b) => a.name.localeCompare(b.name));
     setFilteredData(orderedPlanets);
   }, [data]);
 
