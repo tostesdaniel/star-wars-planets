@@ -22,15 +22,14 @@ export default function SortForm() {
     const after = 1;
     const before = -1;
     const orderedPlanets = [...arr].sort((a, b) => {
-      if (b[column] === 'unknown') return sort === 'DESC' ? before : after;
-      if (Number(a[column]) === Number(b[column])) {
-        return sort === 'ASC'
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
+      if (a[column] === 'unknown') return after;
+
+      if (b[column] === 'unknown') return before;
+
+      if (sort === 'ASC') {
+        return Number(a[column]) - Number(b[column]);
       }
-      return sort === 'ASC'
-        ? Number(a[column]) - Number(b[column])
-        : Number(b[column]) - Number(a[column]);
+      return Number(b[column]) - Number(a[column]);
     });
     setFilteredData(orderedPlanets);
   };
